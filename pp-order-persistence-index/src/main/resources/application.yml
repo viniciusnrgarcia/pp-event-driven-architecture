@@ -1,0 +1,44 @@
+server:
+  port: ${SERVER_PORT:0}
+
+spring:
+  application:
+    name: pp-order-persistence-index
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    default-property-inclusion: USE_DEFAULTS
+  elasticsearch:
+    server-url: ${ELASTICSEARCH_SERVER:localhost:9200}
+  data:
+    elasticsearch:
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 120s
+  kafka:
+    bootstrap-servers-id: ${BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: order-persistence-index-group-id
+      listener-id: order-persistence-index-listener-id
+      topic-order: ${TOPIC_ORDER:order-persistence}
+      max-poll-records: ${KAFKA_MAX_POLL_RECORDS:1}
+      concurrency: ${KAFKA_CONCURRENCY:1}
+      key-deserializer: "org.apache.kafka.common.serialization.IntegerDeserializer"
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      properties:
+        spring:
+          json:
+            value:
+              default:
+                type: "br.com.vnrg.pporderstream.model.Order"
+            trusted:
+              packages: "br.com.vnrg"
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    org.springframework: error
+    org.apache: error

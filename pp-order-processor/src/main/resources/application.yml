@@ -1,0 +1,44 @@
+server:
+  port: ${SERVER_PORT:0}
+
+spring:
+  application:
+    name: pp-order-processor
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    default-property-inclusion: USE_DEFAULTS
+  redis:
+    server-url: ${REDIS_SERVER:localhost}
+    server-port: 6379
+  kafka:
+    bootstrap-servers-id: ${BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: "org.apache.kafka.common.serialization.IntegerSerializer"
+      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+      client-id: order-processor-producer-id
+      topic-order-persistence: ${TOPIC_RECORD:order-persistence}
+    consumer:
+      group-id: order-processor-group-id
+      listener-id: order-processor-listener-id
+      topic-order: ${TOPIC_ORDER:order}
+      max-poll-records: ${KAFKA_MAX_POLL_RECORDS:1}
+      concurrency: ${KAFKA_CONCURRENCY:1}
+      key-deserializer: "org.apache.kafka.common.serialization.IntegerDeserializer"
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+      properties:
+        spring:
+          json:
+            value:
+              default:
+                type: "br.com.vnrg.pporderstream.model.Order"
+            trusted:
+              packages: "br.com.vnrg"
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    org.springframework: error
+    org.apache: error

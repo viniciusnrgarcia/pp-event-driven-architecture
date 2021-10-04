@@ -1,0 +1,22 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  application:
+    name: pp-order-websocket
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    default-property-inclusion: USE_DEFAULTS
+  kafka:
+    bootstrap-servers-id: ${BOOTSTRAP_SERVERS:localhost:9092}
+    topic-order: ${TOPIC_ORDER:order}
+
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    org.springframework: error
+    org.apache: error

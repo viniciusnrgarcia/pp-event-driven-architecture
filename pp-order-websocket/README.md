@@ -1,0 +1,1 @@
+payload example ws: {'token':'client-id-1','asset':'b3sa3','amount':5000}

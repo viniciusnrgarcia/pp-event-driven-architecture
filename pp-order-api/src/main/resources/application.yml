@@ -1,0 +1,25 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  application:
+    name: pp-order-api
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    default-property-inclusion: USE_DEFAULTS
+  kafka:
+    bootstrap-servers-id: ${BOOTSTRAP_SERVERS:localhost:9092}
+    topic-order: ${TOPIC_ORDER:order}
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    org.springframework: error
+    org.apache: error

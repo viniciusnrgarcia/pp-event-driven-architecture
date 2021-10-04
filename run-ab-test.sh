@@ -1,0 +1,1 @@
+ab -c 32 -n 1000000 -H 'accept: */*' -H 'token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MzQzMDg5MzQsInVzZXIiOiJjbGllbnQtaWQtMSJ9.0fsvdpyMqgSn6NeV2WhQWO4GNYMSuzfz8tL1nZeIfes' -H 'Content-Type: application/json' -T application/json -p mock-ab-test.json http://localhost:8080/order

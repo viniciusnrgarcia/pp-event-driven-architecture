@@ -1,0 +1,34 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  application:
+    name: pp-auth-server
+  main:
+    lazy-initialization: false
+    banner-mode: "off"
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+    default-property-inclusion: USE_DEFAULTS
+  redis:
+    server-url: ${REDIS_SERVER:localhost}
+    server-port: 6379
+  elasticsearch:
+    server-url: ${ELASTICSEARCH_SERVER:localhost:9200}
+  data:
+    elasticsearch:
+      properties:
+        transport:
+          tcp:
+            connect_timeout: 120s
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    org.springframework: error
+    org.apache: error
